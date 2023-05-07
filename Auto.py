@@ -638,27 +638,21 @@ class Admin_Menu(Frame):
 
         self.element_add = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_elements)
         self.element_add.place(relx=0.10, rely=0.36)
-        self.element_add.bind('<Enter>', self.add_elements_enter)
 
         self.it_btn = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_it_and_beverages)
         self.it_btn.place(relx=0.10, rely=0.74)
-        self.it_btn.bind('<Enter>', self.add_it_and_beverages_enter)
 
         self.price_add = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_price)
         self.price_add.place(relx=0.10, rely=0.49)
-        self.price_add.bind('<Enter>', self.add_price_enter)
 
         self.user_add = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_user)
         self.user_add.place(relx=0.10, rely=0.62)
-        self.user_add.bind('<Enter>', self.add_user_enter)
 
         self.price_it_btn = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_it_price)
         self.price_it_btn.place(relx=0.10, rely=0.84)
-        self.price_it_btn.bind('<Enter>', self.add_it_price_enter)
 
         self.password_user_btn = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_password_user)
         self.password_user_btn.place(relx=0.10, rely=0.95)
-        self.password_user_btn.bind('<Enter>', self.add_password_user_enter)
 
         self.save_btn = Button(self.master6, text='Сохранить изменения', font='Arial 8 bold', padx=7, pady=7, command=self.save_lists)
         self.save_btn.place(relx=0.37, rely=0.85)
@@ -717,95 +711,6 @@ class Admin_Menu(Frame):
         self.lst_window1.insert(END, self.benzin_entry.get())
         self.benzin_entry.delete(0, END)
 
-    def add_elements_enter(self, event):
-        self.lst_window1.insert(END, self.benzin_entry.get())
-        self.benzin_entry.delete(0, END)
-
-    def add_price_enter(self, event):
-        self.lst_window2.insert(END, self.price_entry.get())
-        self.price_entry.delete(0, END)
-
-    def add_user_enter(self):
-        self.lst_window3.insert(END, self.user_entry.get())
-        self.user_entry.delete(0, END)
-
-    def add_it_enter(self, event):
-        self.lst_window4.insert(END, self.eda_and_napitki_ent.get())
-        self.eda_and_napitki_ent.delete(0, END)
-
-    def add_it_price_enter(self, event):
-        self.lst_window5.insert(END, self.price_it_ent.get())
-        self.price_it_ent.delete(0, END)
-
-    def add_password_user_enter(self, event):
-        self.lst_password_user.insert(END, self.password_user_ent.get())
-        self.password_user_ent.delete(0, END)
-
-    def add_elements_menu_enter(self, event):
-        self.select = list(self.lst_window1.curselection())
-        for i in self.select:
-            self.lst_menu.insert(END, self.lst_window1.get(i))
-
-    def add_price_menu_enter(self, event):
-        self.select = list(self.lst_window2.curselection())
-        for i in self.select:
-            self.lst_menu.insert(END, self.lst_window2.get(i))
-
-    def add_it_menu_enter(self, event):
-        self.select = list(self.lst_window4.curselection())
-        for i in self.select:
-            self.lst_menu.insert(END, self.lst_window4.get(i))
-
-    def add_it_price_menu_enter(self, event):
-        self.select = list(self.lst_window5.curselection())
-        for i in self.select:
-            self.lst_menu.insert(END, self.lst_window5.get(i))
-
-    def add_price_enter_enter(self, event):
-        number1 = self.price_entry.get()
-        number2 = self.price_entry.get()
-        number3 = self.price_entry.get()
-        number4 = self.price_entry.get()
-        number5 = self.price_entry.get()
-        number6 = self.price_entry.get()
-        number7 = self.price_entry.get()
-        number8 = self.price_entry.get()
-        number9 = self.price_entry.get()
-        number10 = self.price_entry.get()
-        number11 = self.price_entry.get()
-        number12 = self.price_entry.get()
-        number13 = self.price_entry.get()
-        number14 = self.price_entry.get()
-        number15 = self.price_entry.get()
-        number16 = self.price_entry.get()
-        number17 = self.price_entry.get()
-        number18 = self.price_entry.get()
-        number19 = self.price_entry.get()
-        number20 = self.price_entry.get()
-        if number1 == '1$' or number2 == '2$' or number3 == '3$' or number4 == '4$' or number5 == '5$' or number6 == '6$' or number7 == '7$' or number8 == '8$' or number9 == '9$' or number10 == '10$' or number11 == '11$' or number12 == '12$'or number13 == '13$' or number14 == '14$' or number15 == '15$' or number16 == '16$' or number17 == '17$' or number18 == '18$' or number19 == '19$' or number20 == '20$':
-             self.lst_window2.insert(END, self.price_entry.get())
-             self.price_entry.delete(0, END)
-
-    def add_user_enter(self, event):
-        self.lst_window3.insert(END, self.user_entry.get())
-        self.user_entry.delete(0, END)
-
-    def add_it_and_beverages_enter(self, event):
-        self.lst_window4.insert(END, self.eda_and_napitki_ent.get())
-        self.eda_and_napitki_ent.delete(0, END)
-
-    def add_it_price_enter(self, event):
-        number_1 = self.price_it_ent.get()
-        number_2 = self.price_it_ent.get()
-        number_3 = self.price_it_ent.get()
-        number_4 = self.price_it_ent.get()
-        number_5 = self.price_it_ent.get()
-        number_6 = self.price_it_ent.get()
-        if number_1 == '1$' or number_2 == '2$' or number_3 == '3$' or number_4 == '4$' or number_5 == '5$' or number_6 == '6$':
-            self.lst_window5.insert(END, self.price_it_ent.get())
-            self.price_it_ent.delete(0, END)
-        else:
-            showerror('Azpetrol', 'В это поле можно вводить только числа. Если вы ввели число больше 6 то цена не добавится')
 
     def add_price(self):
         number1 = self.price_entry.get()
@@ -962,6 +867,11 @@ class Admin_Menu(Frame):
               f'\nВ меню добавлен - {self.lst_window4.get(0)}'
               f'\nВ меню добавлен - {self.lst_window5.get(0)}')
         print(self.my_menu)
+
+        print('\n Добавленые пользователи а так же их пароль')
+        self.users_and_password = (f'\nДобавлен пользователь - {self.lst_window6.get(0)}'
+                                   f'\nДобавлен пароль пользователя - {self.lst_password_user.get(0)}')
+        print(self.users_and_password)
 
 if __name__ == '__main__':
     root = Tk()
