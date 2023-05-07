@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter.messagebox import *
 
-
 class LoginWindow(Frame):
     def __init__(self, master=None):
         super().__init__(master)
@@ -32,6 +31,7 @@ class LoginWindow(Frame):
 
         self.send_btn = Button(self.master1, text='Войти', command=self.login)
         self.send_btn.pack(padx=10, pady=8)
+        self.send_btn.bind('<Enter>', self.login_enter)
 
         self.show_btn = Button(self.master1, text='показывать', command=self.show_password)
         self.show_btn.place(relx=0.78, rely=0.55)
@@ -69,6 +69,38 @@ class LoginWindow(Frame):
             log = self.username_entry.get()
             psw = self.password_entry.get()
             showerror('ERROR', 'Введено не верное имя или пароль')
+
+    def login_enter(self, event):
+        text = self.username_entry.get()
+        result1 = 'Имя пользователя: ' + text
+        self.username_entry['text'] = result1
+        print(result1)
+
+        text = self.password_entry.get()
+        result2 = 'Пароль: ' + text
+        self.password_entry['text'] = result2
+        print(result2)
+
+        self.file = open('login_information.txt', 'w')
+        self.file.writelines(self.username_entry.get())
+        self.file.close()
+
+        self.file = open('password_information.txt', 'w')
+        self.file.writelines(self.password_entry.get())
+        self.file.close()
+
+        log = self.username_entry.get()
+        psw = self.password_entry.get()
+        if log == 'Admin' and psw == 'admin' or log == 'admin':
+            showinfo('Azpetrol', 'Вход успешно выполнен!  Чтобы продолжить нажмите ОК')
+            self.master1.withdraw()
+            self.new_window = Toplevel(self.master1)
+            self.menu_window = Input_Selection(self.new_window)
+        else:
+            log = self.username_entry.get()
+            psw = self.password_entry.get()
+            showerror('ERROR', 'Введено не верное имя или пароль')
+
 
 
     def sign(self):
@@ -115,6 +147,7 @@ class Sign_Menu(Frame):
 
         self.snd_btn = Button(self.master3, text='Зарегистрироваться', command=self.login_win)
         self.snd_btn.pack(padx=10, pady=8)
+        self.snd_btn.bind('<Enter>', self.login_win_enter)
 
         self.pas_btn = Button(self.master3, text='Войти в аккаунт', command=self.return_window)
         self.pas_btn.pack(padx=10, pady=8)
@@ -140,15 +173,36 @@ class Sign_Menu(Frame):
             self.new_window = Toplevel(self.master3)
             self.menu_window = Input_Selection(self.new_window)
 
-        text = self.usernam_entry.get()
-        result1 = 'Имя пользователя: ' + text
-        self.usernam_entry['text'] = result1
-        print(result1)
+    def login_win_enter(self, event):
+            self.file = open('login_user.txt', 'w')
+            self.file.writelines(self.usernam_entry.get())
+            self.file.close()
 
-        text = self.pasword_entry.get()
-        result2 = 'Пароль: ' + text
-        self.pasword_entry['text'] = result2
-        print(result2)
+            self.file = open('password_user.txt', 'w')
+            self.file.writelines(self.pasword_entry.get())
+            self.file.close()
+
+            log = self.usernam_entry.get()
+            psw = self.pasword_entry.get()
+            if log == '' and psw == '':
+                showerror('Registration', 'С пустыми данными зарегистрироваться нельзя')
+
+            else:
+
+                showinfo('Registration', 'Вы успешно были зарегистрированы!')
+                self.master3.withdraw()
+                self.new_window = Toplevel(self.master3)
+                self.menu_window = Input_Selection(self.new_window)
+
+            text = self.usernam_entry.get()
+            result1 = 'Имя пользователя: ' + text
+            self.usernam_entry['text'] = result1
+            print(result1)
+
+            text = self.pasword_entry.get()
+            result2 = 'Пароль: ' + text
+            self.pasword_entry['text'] = result2
+            print(result2)
 
     def return_window(self):
         self.master3.destroy()
@@ -584,21 +638,27 @@ class Admin_Menu(Frame):
 
         self.element_add = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_elements)
         self.element_add.place(relx=0.10, rely=0.36)
+        self.element_add.bind('<Enter>', self.add_elements_enter)
 
         self.it_btn = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_it_and_beverages)
         self.it_btn.place(relx=0.10, rely=0.74)
+        self.it_btn.bind('<Enter>', self.add_it_and_beverages_enter)
 
         self.price_add = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_price)
         self.price_add.place(relx=0.10, rely=0.49)
+        self.price_add.bind('<Enter>', self.add_price_enter)
 
         self.user_add = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_user)
         self.user_add.place(relx=0.10, rely=0.62)
+        self.user_add.bind('<Enter>', self.add_user_enter)
 
         self.price_it_btn = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_it_price)
         self.price_it_btn.place(relx=0.10, rely=0.84)
+        self.price_it_btn.bind('<Enter>', self.add_it_price_enter)
 
         self.password_user_btn = Button(self.master6, text='Добавить', font='Arial 6 bold', padx=6, pady=6, command=self.add_password_user)
         self.password_user_btn.place(relx=0.10, rely=0.95)
+        self.password_user_btn.bind('<Enter>', self.add_password_user_enter)
 
         self.save_btn = Button(self.master6, text='Сохранить изменения', font='Arial 8 bold', padx=7, pady=7, command=self.save_lists)
         self.save_btn.place(relx=0.37, rely=0.85)
@@ -656,6 +716,96 @@ class Admin_Menu(Frame):
     def add_elements(self):
         self.lst_window1.insert(END, self.benzin_entry.get())
         self.benzin_entry.delete(0, END)
+
+    def add_elements_enter(self, event):
+        self.lst_window1.insert(END, self.benzin_entry.get())
+        self.benzin_entry.delete(0, END)
+
+    def add_price_enter(self, event):
+        self.lst_window2.insert(END, self.price_entry.get())
+        self.price_entry.delete(0, END)
+
+    def add_user_enter(self):
+        self.lst_window3.insert(END, self.user_entry.get())
+        self.user_entry.delete(0, END)
+
+    def add_it_enter(self, event):
+        self.lst_window4.insert(END, self.eda_and_napitki_ent.get())
+        self.eda_and_napitki_ent.delete(0, END)
+
+    def add_it_price_enter(self, event):
+        self.lst_window5.insert(END, self.price_it_ent.get())
+        self.price_it_ent.delete(0, END)
+
+    def add_password_user_enter(self, event):
+        self.lst_password_user.insert(END, self.password_user_ent.get())
+        self.password_user_ent.delete(0, END)
+
+    def add_elements_menu_enter(self, event):
+        self.select = list(self.lst_window1.curselection())
+        for i in self.select:
+            self.lst_menu.insert(END, self.lst_window1.get(i))
+
+    def add_price_menu_enter(self, event):
+        self.select = list(self.lst_window2.curselection())
+        for i in self.select:
+            self.lst_menu.insert(END, self.lst_window2.get(i))
+
+    def add_it_menu_enter(self, event):
+        self.select = list(self.lst_window4.curselection())
+        for i in self.select:
+            self.lst_menu.insert(END, self.lst_window4.get(i))
+
+    def add_it_price_menu_enter(self, event):
+        self.select = list(self.lst_window5.curselection())
+        for i in self.select:
+            self.lst_menu.insert(END, self.lst_window5.get(i))
+
+    def add_price_enter_enter(self, event):
+        number1 = self.price_entry.get()
+        number2 = self.price_entry.get()
+        number3 = self.price_entry.get()
+        number4 = self.price_entry.get()
+        number5 = self.price_entry.get()
+        number6 = self.price_entry.get()
+        number7 = self.price_entry.get()
+        number8 = self.price_entry.get()
+        number9 = self.price_entry.get()
+        number10 = self.price_entry.get()
+        number11 = self.price_entry.get()
+        number12 = self.price_entry.get()
+        number13 = self.price_entry.get()
+        number14 = self.price_entry.get()
+        number15 = self.price_entry.get()
+        number16 = self.price_entry.get()
+        number17 = self.price_entry.get()
+        number18 = self.price_entry.get()
+        number19 = self.price_entry.get()
+        number20 = self.price_entry.get()
+        if number1 == '1$' or number2 == '2$' or number3 == '3$' or number4 == '4$' or number5 == '5$' or number6 == '6$' or number7 == '7$' or number8 == '8$' or number9 == '9$' or number10 == '10$' or number11 == '11$' or number12 == '12$'or number13 == '13$' or number14 == '14$' or number15 == '15$' or number16 == '16$' or number17 == '17$' or number18 == '18$' or number19 == '19$' or number20 == '20$':
+             self.lst_window2.insert(END, self.price_entry.get())
+             self.price_entry.delete(0, END)
+
+    def add_user_enter(self, event):
+        self.lst_window3.insert(END, self.user_entry.get())
+        self.user_entry.delete(0, END)
+
+    def add_it_and_beverages_enter(self, event):
+        self.lst_window4.insert(END, self.eda_and_napitki_ent.get())
+        self.eda_and_napitki_ent.delete(0, END)
+
+    def add_it_price_enter(self, event):
+        number_1 = self.price_it_ent.get()
+        number_2 = self.price_it_ent.get()
+        number_3 = self.price_it_ent.get()
+        number_4 = self.price_it_ent.get()
+        number_5 = self.price_it_ent.get()
+        number_6 = self.price_it_ent.get()
+        if number_1 == '1$' or number_2 == '2$' or number_3 == '3$' or number_4 == '4$' or number_5 == '5$' or number_6 == '6$':
+            self.lst_window5.insert(END, self.price_it_ent.get())
+            self.price_it_ent.delete(0, END)
+        else:
+            showerror('Azpetrol', 'В это поле можно вводить только числа. Если вы ввели число больше 6 то цена не добавится')
 
     def add_price(self):
         number1 = self.price_entry.get()
