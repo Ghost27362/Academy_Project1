@@ -31,7 +31,6 @@ class LoginWindow(Frame):
 
         self.send_btn = Button(self.master1, text='Войти', command=self.login)
         self.send_btn.pack(padx=10, pady=8)
-        self.send_btn.bind('<Enter>', self.login_enter)
 
         self.show_btn = Button(self.master1, text='показывать', command=self.show_password)
         self.show_btn.place(relx=0.78, rely=0.55)
@@ -69,39 +68,6 @@ class LoginWindow(Frame):
             log = self.username_entry.get()
             psw = self.password_entry.get()
             showerror('ERROR', 'Введено не верное имя или пароль')
-
-    def login_enter(self, event):
-        text = self.username_entry.get()
-        result1 = 'Имя пользователя: ' + text
-        self.username_entry['text'] = result1
-        print(result1)
-
-        text = self.password_entry.get()
-        result2 = 'Пароль: ' + text
-        self.password_entry['text'] = result2
-        print(result2)
-
-        self.file = open('login_information.txt', 'w')
-        self.file.writelines(self.username_entry.get())
-        self.file.close()
-
-        self.file = open('password_information.txt', 'w')
-        self.file.writelines(self.password_entry.get())
-        self.file.close()
-
-        log = self.username_entry.get()
-        psw = self.password_entry.get()
-        if log == 'Admin' and psw == 'admin' or log == 'admin':
-            showinfo('Azpetrol', 'Вход успешно выполнен!  Чтобы продолжить нажмите ОК')
-            self.master1.withdraw()
-            self.new_window = Toplevel(self.master1)
-            self.menu_window = Input_Selection(self.new_window)
-        else:
-            log = self.username_entry.get()
-            psw = self.password_entry.get()
-            showerror('ERROR', 'Введено не верное имя или пароль')
-
-
 
     def sign(self):
         cno = self.send_btn
@@ -147,10 +113,14 @@ class Sign_Menu(Frame):
 
         self.snd_btn = Button(self.master3, text='Зарегистрироваться', command=self.login_win)
         self.snd_btn.pack(padx=10, pady=8)
-        self.snd_btn.bind('<Enter>', self.login_win_enter)
 
         self.pas_btn = Button(self.master3, text='Войти в аккаунт', command=self.return_window)
         self.pas_btn.pack(padx=10, pady=8)
+
+    def return_window(self):
+        self.master3.destroy()
+        self.new_log = Toplevel()
+        self.log = LoginWindow(self.new_log)
 
     def login_win(self):
         self.file = open('login_user.txt', 'w')
@@ -173,41 +143,6 @@ class Sign_Menu(Frame):
             self.new_window = Toplevel(self.master3)
             self.menu_window = Input_Selection(self.new_window)
 
-    def login_win_enter(self, event):
-            self.file = open('login_user.txt', 'w')
-            self.file.writelines(self.usernam_entry.get())
-            self.file.close()
-
-            self.file = open('password_user.txt', 'w')
-            self.file.writelines(self.pasword_entry.get())
-            self.file.close()
-
-            log = self.usernam_entry.get()
-            psw = self.pasword_entry.get()
-            if log == '' and psw == '':
-                showerror('Registration', 'С пустыми данными зарегистрироваться нельзя')
-
-            else:
-
-                showinfo('Registration', 'Вы успешно были зарегистрированы!')
-                self.master3.withdraw()
-                self.new_window = Toplevel(self.master3)
-                self.menu_window = Input_Selection(self.new_window)
-
-            text = self.usernam_entry.get()
-            result1 = 'Имя пользователя: ' + text
-            self.usernam_entry['text'] = result1
-            print(result1)
-
-            text = self.pasword_entry.get()
-            result2 = 'Пароль: ' + text
-            self.pasword_entry['text'] = result2
-            print(result2)
-
-    def return_window(self):
-        self.master3.destroy()
-        self.new_log = Toplevel()
-        self.log = LoginWindowSelect(self.new_log)
 
 class LoginWindowSelect(Frame):
     def __init__(self, master=None):
